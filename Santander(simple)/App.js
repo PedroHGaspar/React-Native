@@ -7,10 +7,13 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-
-let valorInicial = '7.320,92';
+import { CaixaEletronico } from './conta.js';
 
 export default function App() {
+  const [caixa, setCaixa] = useState(new CaixaEletronico(7832.92));
+  const [valorDigitado, setValorDigitado] = useState(0);
+
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -26,15 +29,37 @@ export default function App() {
       </View>
       <View style={styles.container}>
         <Text style={styles.letras}>SALDO ATUAL NA CONTA</Text>
-        <Text style={styles.saldo}>${valorInicial}</Text>
+        <Text style={styles.saldo}>${caixa.saldo.toFixed(2)}</Text>
         <Text style={styles.legenda}>
           Digite o valor abaixo e escolha uma das operações bancárias:
         </Text>
 
-        <TextInput placeholder=" 0,00" style={styles.inputValor}></TextInput>
+        <TextInput
+          placeholder="0,00"
+          keyboardType="numeric"
+          style={styles.inputValor}
+          onChangeText={setValorDigitado}>
+          </TextInput>
 
-        <Text style={styles.botao1}>SACAR</Text>
-        <Text style={styles.botao2}>DEPOSITAR</Text>
+        <Text
+          style={styles.botao1}
+          onPress={() => {
+            setCaixa(
+              new CaixaEletronico(caixa.saque(valorDigitado), valorDigitado)
+            );
+          }}>
+          SACAR
+        </Text>
+
+        <Text
+          style={styles.botao2}
+          onPress={() => {
+            setCaixa(
+              new CaixaEletronico(caixa.deposito(valorDigitado), valorDigitado)
+            );
+          }}>
+          DEPOSITAR
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -67,7 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#C71A2B',
     width: 250,
     padding: 10,
-    borderBottomWidth: 0.5,
     borderRadius: 7,
     color: '#ffffff',
   },
