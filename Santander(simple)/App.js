@@ -8,11 +8,11 @@ import {
   Image,
 } from 'react-native';
 import { CaixaEletronico } from './conta.js';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function App() {
   const [caixa, setCaixa] = useState(new CaixaEletronico(7832.92));
   const [valorDigitado, setValorDigitado] = useState(0);
-
 
   return (
     <SafeAreaView>
@@ -29,17 +29,23 @@ export default function App() {
       </View>
       <View style={styles.container}>
         <Text style={styles.letras}>SALDO ATUAL NA CONTA</Text>
-        <Text style={styles.saldo}>${caixa.saldo.toFixed(2)}</Text>
+        <Text style={styles.saldo}>${caixa._saldo.toFixed(2)}</Text>
         <Text style={styles.legenda}>
           Digite o valor abaixo e escolha uma das operações bancárias:
         </Text>
+
+        <FontAwesome
+          style={styles.dinheiro}
+          size={20}
+          color="#34780B"
+          name="money"
+        />
 
         <TextInput
           placeholder="0,00"
           keyboardType="numeric"
           style={styles.inputValor}
-          onChangeText={setValorDigitado}>
-          </TextInput>
+          onChangeText={setValorDigitado}></TextInput>
 
         <Text
           style={styles.botao1}
@@ -110,6 +116,11 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     fontSize: 40,
     fontWeight: 'bold',
+  },
+  dinheiro: {
+    position: 'absolute',
+    right: 320,
+    bottom: 163,
   },
   inputValor: {
     marginTop: 50,
