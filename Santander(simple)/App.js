@@ -45,11 +45,15 @@ export default function App() {
           placeholder="0,00"
           keyboardType="numeric"
           style={styles.inputValor}
-          onChangeText={setValorDigitado}></TextInput>
+          onChangeText={setValorDigitado}
+          value={valorDigitado}
+          ref={input => { this.textInput = input }}>
+        </TextInput>
 
         <Text
           style={styles.botao1}
           onPress={() => {
+            this.textInput.clear()
             setCaixa(
               new CaixaEletronico(caixa.saque(valorDigitado), valorDigitado)
             );
@@ -60,6 +64,7 @@ export default function App() {
         <Text
           style={styles.botao2}
           onPress={() => {
+            this.textInput.clear()
             setCaixa(
               new CaixaEletronico(caixa.deposito(valorDigitado), valorDigitado)
             );
