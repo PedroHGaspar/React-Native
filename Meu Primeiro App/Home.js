@@ -4,32 +4,35 @@ import { LinearGradient } from 'expo-linear-gradient';
 export function Home({ navigation }) {
   return (
     <View style={styles.container}>
+    <LinearGradient
+          colors={['#000000', '#006478', '#004857' ]}
+          style={styles.linearGradient}
+        >
       <Image
         style={{
-          width: 141,
-          height: 141,
-          borderRadius:100,
-          marginBottom:10,
+          width: '39%',
+          height: '21%',
+          borderRadius:200,
+          marginBottom:15,
         }}
-        source={{
-          uri: 'https://s2.glbimg.com/6josynSDrf8psyn4_4X14OavmxY=/e.glbimg.com/og/ed/f/original/2022/02/25/border-collie-pexels-alotrobo-3523317.jpg',
-        }}
+        source={require('./pedrito.jpg')}
       />
       <Text style={styles.textinho1}>Bem vindo ao meu primeiro App!</Text>
       <Text style={styles.textinho2}>
-        Gosto de programar, ouvir músicas altas enquanto dirijo e sair com os
+        Gosto de programar, ouvir músicas enquanto dirijo e sair com os
         amigos sem precisar de motivos!
       </Text>
       <Text
         style={styles.botao1}
-        onPress={() => navigation.navigate('Perfil', { nome: 'Paulo' })}>
-        Filmes Tops
+        onPress={() => navigation.navigate('Filmes')}>
+        Filmes Favoritos
       </Text>
       <Text
         style={styles.botao2}
-        onPress={() => navigation.navigate('Perfil', { nome: 'Paulo' })}>
-        Minhas Viagens
+        onPress={() => navigation.navigate('Jogos')}>
+        Jogos Favoritos
       </Text>
+      </LinearGradient>
     </View>
   );
 }
@@ -39,9 +42,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    paddingTop:'20%',
     backgroundColor:'',
-    flex:1
+    flex:1,
     
   },
   botao1: {
@@ -51,7 +53,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     color: '#ffffff',
     textAlign:'center',
-    fontWeight:'bold'
+    fontWeight:'bold',
+        marginBottom:8,
   },
   botao2: {
     backgroundColor: '#01acad',
@@ -61,13 +64,14 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginVertical: 10,
     textAlign:'center',
-    fontWeight:'bold'
+    fontWeight:'bold',
   },
   textinho1: {
     width: '65%',
     fontWeight: 'bold',
     textAlign:'center',
     fontSize:30,
+        color:'#ffffff',
   },
   textinho2: {
     width: '65%',
@@ -75,5 +79,14 @@ const styles = StyleSheet.create({
     marginBottom:'15%',
     textAlign:'center',
     fontSize:15,
+        color:'#ffffff',
+  },
+    linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: '102%',
+    width: '102%',
+    flex:1,
   },
 });
