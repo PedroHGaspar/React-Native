@@ -32,6 +32,11 @@ export function Home({ navigation }) {
         onPress={() => navigation.navigate('Jogos')}>
         Jogos Favoritos
       </Text>
+      <Text
+        style={styles.botao2}
+        onPress={() => navigation.navigate('AdicionarFilmes')}>
+        Adicionar Filme
+      </Text>
       </LinearGradient>
     </View>
   );
@@ -57,6 +62,16 @@ const styles = StyleSheet.create({
         marginBottom:8,
   },
   botao2: {
+    backgroundColor: '#01acad',
+    width: '57%',
+    padding: 10,
+    borderRadius: 15,
+    color: '#ffffff',
+    marginVertical: 10,
+    textAlign:'center',
+    fontWeight:'bold',
+  },
+  botao3: {
     backgroundColor: '#01acad',
     width: '57%',
     padding: 10,

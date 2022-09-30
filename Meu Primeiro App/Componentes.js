@@ -13,10 +13,10 @@ export function FilmesPreferidos({ nome, imagemFilme }) {
   );
 }
 
-export function JogosPreferidos({ nome, imagemFilme }) {
+export function JogosPreferidos({ nome, imagemJogo }) {
   return (
     <View style={styles.container}>
-      <Image style={styles.imagemFilme} source={{ uri: imagemFilme }} />
+      <Image style={styles.imagemJogo} source={{ uri: imagemJogo }} />
 
       <View style={styles.nomeFilmes}>
         <Text style={styles.nomeFilme}>{nome}</Text>
@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     width: 330,
   },
   imagemFilme: {
+    height: 200,
+    width: 330,
+  },
+  imagemJogo: {
     height: 200,
     width: 330,
   },

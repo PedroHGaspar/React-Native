@@ -3,23 +3,23 @@ import { JogosPreferidos } from './Componentes';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export function Jogos() {
-  const filmes = [
+  const jogos = [
     {
       nome: 'CS-GO',
-      imagemFilme: 'https://cdn.clickwallpapers.net/images/clickwallpapers.net-counter-strike-global-offensive-4k-free-download_img3.jpg',
+      imagemJogo: 'https://cdn.clickwallpapers.net/images/clickwallpapers.net-counter-strike-global-offensive-4k-free-download_img3.jpg',
     },
     {
       nome: 'Project Zomboid',
-      imagemFilme: 'https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/01/Project-Zomboid-01.jpg?w=1920&ssl=1',
+      imagemJogo: 'https://i0.wp.com/bloody-disgusting.com/wp-content/uploads/2022/01/Project-Zomboid-01.jpg?w=1920&ssl=1',
     },
     {
       nome: 'PayDay 2',
-      imagemFilme:
+      imagemJogo:
         'https://i.ytimg.com/vi/9VVHR_vNADs/maxresdefault.jpg',
     },
     {
       nome: 'Green Hell',
-      imagemFilme:
+      imagemJogo:
         'https://www.opiumpulses.com/uploads/articles/418/green-hell.jpg',
     },
   ];
@@ -33,11 +33,11 @@ export function Jogos() {
       <View style={styles.cabecalho}>
       </View>
       <FlatList
-        data={filmes}
+        data={jogos}
         renderItem={({ item }) => (
           <JogosPreferidos
             nome={item.nome}
-            imagemFilme={item.imagemFilme}
+            imagemJogo={item.imagemJogo}
           />
         )}
       />

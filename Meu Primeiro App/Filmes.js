@@ -1,16 +1,21 @@
-import { View, FlatList, Text, StyleSheet} from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { FilmesPreferidos } from './Componentes';
 import { LinearGradient } from 'expo-linear-gradient';
+import {useEffect, useState} from 'react';
 
-export function Filmes() {
-  const filmes = [
+
+export function Filmes({route}) {
+
+const [filmes, setFilmes] = useState([
     {
       nome: 'Vingadores - Ultimato',
-      imagemFilme: 'https://cafecomnerd.com.br/wp-content/uploads/2019/03/vingadores-ultimato-trailer-marvel.jpg',
+      imagemFilme:
+        'https://cafecomnerd.com.br/wp-content/uploads/2019/03/vingadores-ultimato-trailer-marvel.jpg',
     },
     {
       nome: 'Senhor dos Anéis - O Retorno do Rei',
-      imagemFilme: 'https://i1.wp.com/temalguemassistindo.com.br/wp-content/uploads/2019/02/senhor-dos-aneis-1200x675.jpg',
+      imagemFilme:
+        'https://i1.wp.com/temalguemassistindo.com.br/wp-content/uploads/2019/02/senhor-dos-aneis-1200x675.jpg',
     },
     {
       nome: 'Hobbit - A Batalha dos Cinco Exércitos',
@@ -27,25 +32,37 @@ export function Filmes() {
       imagemFilme:
         'http://images6.fanpop.com/image/photos/43900000/Tokyo-Drift-2006-Wallpaper-fast-and-furious-43983620-1920-1080.jpg',
     },
-  ];
+  ]);
+
+useEffect (() => {
+  if(route.params){
+    const{filme} = route.params;
+    setFilmes([filme, ...filmes])
+  }
+}, [])
+
+
 
   return (
     <View>
-        <LinearGradient
-          colors={['#000000', '#000000', '#000000','#000000', '#000000', '#616161', '#616161' ]}
-          style={styles.linearGradient}
-        >
-      <View style={styles.cabecalho}>
-      </View>
-      <FlatList
-        data={filmes}
-        renderItem={({ item }) => (
-          <FilmesPreferidos
-            nome={item.nome}
-            imagemFilme={item.imagemFilme}
-          />
-        )}
-      />
+      <LinearGradient
+        colors={[
+          '#000000',
+          '#000000',
+          '#000000',
+          '#000000',
+          '#000000',
+          '#616161',
+          '#616161',
+        ]}
+        style={styles.linearGradient}>
+        <View style={styles.cabecalho}></View>
+        <FlatList
+          data={filmes}
+          renderItem={({ item }) => (
+            <FilmesPreferidos nome={item.nome} imagemFilme={item.imagemFilme} />
+          )}
+        />
       </LinearGradient>
     </View>
   );
@@ -59,5 +76,4 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     // paddingLeft: 0,
   },
-  
 });
