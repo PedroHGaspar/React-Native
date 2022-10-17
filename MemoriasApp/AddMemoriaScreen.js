@@ -5,6 +5,7 @@ import {
   Image,
   Pressable,
   StyleSheet,
+  Vibration,
 } from 'react-native';
 //Para pegar as imagens
 import * as ImagePicker from 'expo-image-picker';
@@ -20,13 +21,12 @@ Componente para adicionar novas memorias, ou seja,
 pega as informações e joga pro objeto memorias
 */
 export function AddMemoria({ navigation }) {
-
   //Estados para pegar as informações inseridas
   const [titulo, setTitulo] = useState(null);
   const [descricao, setDescricao] = useState(null);
   const [localizacao, setLocalizacao] = useState(null);
-  const [foto, setFoto] = useState(null); 
-  const [data, setData] = useState(null); 
+  const [foto, setFoto] = useState(null);
+  const [data, setData] = useState(null);
 
   //Contexto onde ficara salvo as informações dos input
   const [memorias, setMemorias] = useContext(MemoriasContext);
@@ -50,8 +50,9 @@ export function AddMemoria({ navigation }) {
   addMemoriaNova = () => {
     //spread (...) para atualizar e não sobscrever a lista de objetos
     setMemorias([...memorias, { titulo, descricao, localizacao, foto, data }]);
-    navigation.navigate('Memórias');  //depois ela vai para a tela principal
+    navigation.navigate('Memórias'); //depois ela vai para a tela principal
   };
+  const um_segundo = 1000;
 
   return (
     <View style={styles.container}>
@@ -89,10 +90,16 @@ export function AddMemoria({ navigation }) {
 
         {foto && <Image style={styles.imagem} source={{ uri: foto }} />}
       </View>
-
-      <Pressable style={styles.botao} onPress={addMemoriaNova}>
+      <Pressable
+        style={styles.botao}
+        onPress={() => {
+          this.addMemoriaNova();
+          Vibration.vibrate(um_segundo);
+        }}>
         <Text style={styles.textoBotao}>Adicionar</Text>
       </Pressable>
+      // esse pressable acima com essas duas funções sendo chamadas no mesmo pressable, é um jeito mais consistente de se fazer.
+      
     </View>
   );
 }
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
     marginVertical: 17,
     borderwidth: 1,
     borderRadius: 10,
-    padding:10,
+    padding: 10,
     fontColor: 'black',
     backgroundColor: '#A4A8BD',
   },
