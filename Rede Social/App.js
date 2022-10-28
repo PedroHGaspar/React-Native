@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Posts } from './PostsScreen';
 import { AddPost } from './AddPostScreen';
 import { Amigos } from './AmigosScreen';
+import {Publicacao} from './Publicacao';
 //Contexto
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PostsContext } from './Contexto/PostsContext';
@@ -12,6 +13,7 @@ import { PostsContext } from './Contexto/PostsContext';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
+
 
 export default function App() {
   const Tab = createBottomTabNavigator();

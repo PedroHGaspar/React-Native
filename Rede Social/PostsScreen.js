@@ -1,33 +1,76 @@
-import { View, Text, Pressable, FlatList, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Pressable,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 //componentes
 import { ListaPosts } from './Componentes/ListaPosts';
 //Contexto
-import {PostsContext} from './Contexto/PostsContext';
+import { PostsContext } from './Contexto/PostsContext';
+//Firebase
+import { firebaseConfig } from './FirebaseConfig';
+import * as firebase from 'firebase';
 
+import { Publicacao } from './Publicacao';
 
-export function Posts({ foto, titulo, descricao, localizacao, data, navigation }) {
+try {
+  firebase.initializeApp(firebaseConfig);
+} catch (e) {
+  console.log('App em carregamento');
+}
 
+export function Posts({
+  foto,
+  titulo,
+  descricao,
+  localizacao,
+  data,
+  navigation,
+}) {
+  const [publicacoes, setPublicacoes] = useState([]);
+  const [novaPublicacao, setNovaPublicacao] = useState({ texto: null });
+
+  useEffect(() => {
+    carregarMensagensDoFirebase();
+  }, []);
+
+  const carregarMensagensDoFirebase = () => {
+    firebase
+      .database()
+      .ref('Publicacoes/')
+      .on('value', (snapshot) => {
+        const mensagens = [];
+        snapshot.forEach((mensagem) => {
+          mensagens.unshift(mensagem.val());
+        });
+
+        setPublicacoes(mensagens);
+      });
+  };
+
+  const publicarMensagemNoFirebase = () => {
+    firebase
+      .database()
+      .ref('Publicacoes/')
+      .push(novaPublicacao)
+      .then((data) => {
+        console.log('salvou! ', data);
+      })
+      .catch((error) => {
+        console.log('Erro ao salvar mensagem ', error);
+      });
+  };
+
+  
 
   const [memorias, setMemorias] = useContext(PostsContext);
-
-
-  const teste = [
-    {
-      foto: 'https://image.api.playstation.com/vulcan/img/rnd/202109/0713/yde6GT9WPbcAUL1QyqjumHs9.png',
-      titulo: 'titulo',
-      descricao: 'descricao',
-      localizacao: 'localizacao',
-      data: 'data',
-    },
-    {
-      foto: 'https://image.api.playstation.com/vulcan/img/rnd/202109/0713/yde6GT9WPbcAUL1QyqjumHs9.png',
-      titulo: 'titulo',
-      descricao: 'descricao',
-      localizacao: 'localizacao',
-      data: 'data',
-    },
-  ];
 
   return (
     <View style={styles.container}>
@@ -74,3 +117,59 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 });
+
+//----------------------------------------------------------------------------------
+
+//   return (
+//       <View style={styles.container}>
+//         <ScrollView style={styles.container2}>
+//           <View >
+//             <FlatList
+//               data={publicacoes}
+//               renderItem={({ item }) => <Publicacao texto={item.texto} />}
+//             />
+//           </View>
+//         </ScrollView>
+
+//         <View style={styles.container3}>
+//         <TextInput
+//           style={styles.input}
+//           onChangeText={(mensagem) =>
+//             setNovaPublicacao({ ...novaPublicacao, texto: mensagem })
+//           }
+//           placeholder="Digite aqui sua mensagem"
+//         />
+//         <Button
+//           title="Publicar mensagem"
+//           onPress={() => publicarMensagemNoFirebase()}
+//         />
+//         </View>
+//       </View>
+    
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingVertical: 30,
+//     paddingHorizontal: 10,
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//   },
+//   input: {
+//     padding: 14,
+//     borderWidth: 1,
+//     marginBottom: 8,
+//     borderColor: '#cecece',
+//   },
+//   container2:{
+//     height: '85%'
+//   },
+//   container3:{
+//     height: '15%'
+//   }
+// });
+
+
+//----------------------------------------------------------------------------------
+
