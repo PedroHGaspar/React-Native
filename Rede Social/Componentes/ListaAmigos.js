@@ -3,12 +3,11 @@ import { Entypo } from '@expo/vector-icons';
 import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { useState } from 'react';
 
-export function ListaPosts({ foto, nome, mensagem, cidade }) {
+export function ListaAmigos({ foto, nome, mensagem, cidade }) {
   let date = new Date().getDate();
   let month = new Date().getMonth() + 1;
 
   const [numeroCurtidas, setNumeroCurtidas] = useState(0);
-  const [comment, setComment] = useState(0);
 
   return (
     <View style={styles.container}>

@@ -13,7 +13,6 @@ import { useContext, useState, useEffect } from 'react';
 //componentes
 import { ListaPosts } from './Componentes/ListaPosts';
 //Contexto
-import { PostsContext } from './Contexto/PostsContext';
 //Firebase
 import { firebaseConfig } from './FirebaseConfig';
 import * as firebase from 'firebase';
@@ -28,14 +27,14 @@ try {
 
 export function Posts({
   foto,
-  titulo,
-  descricao,
-  localizacao,
+  nome,
+  mensagem,
+  cidade,
   data,
+  telefone,
   navigation,
 }) {
   const [publicacoes, setPublicacoes] = useState([]);
-  const [novaPublicacao, setNovaPublicacao] = useState({ texto: null });
 
   useEffect(() => {
     carregarMensagensDoFirebase();
@@ -52,43 +51,27 @@ export function Posts({
         });
 
         setPublicacoes(mensagens);
-      });
-  };
-
-  const publicarMensagemNoFirebase = () => {
-    firebase
-      .database()
-      .ref('Publicacoes/')
-      .push(novaPublicacao)
-      .then((data) => {
-        console.log('salvou! ', data);
-      })
-      .catch((error) => {
-        console.log('Erro ao salvar mensagem ', error);
+        console.log(mensagens)
       });
   };
 
   
 
-  const [memorias, setMemorias] = useContext(PostsContext);
+  // const [memorias, setMemorias] = useContext(PostsContext);
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.botao}
-        onPress={() => navigation.navigate('Adicionar Nova Postagem')}>
-        <Text style={styles.textoBotao}>Publicar</Text>
-      </Pressable>
+
 
       <FlatList
-        data={memorias}
+        data={publicacoes}
         renderItem={({ item }) => (
           <ListaPosts
             foto={item.foto}
-            titulo={item.titulo}
-            data={item.data}
-            descricao={item.descricao}
-            localizacao={item.localizacao}
+            nome={item.nome}
+            mensagem={item.mensagem}
+            cidade={item.cidade}
+            telefone={item.telefone}
           />
         )}
       />
