@@ -72,3 +72,6 @@ function FriendStatus(props) {
   }
   return isOnline ? 'Online' : 'Offline';
 }
+
+
+//----------------------------------------
